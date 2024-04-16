@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cart</title>
+    <style>
+body
+{
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+#cartMainContainer
+{
+    padding: 90px 50px;
+}
+#cartContainer
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+img
+{
+    width: 80px;
+    float: left;
+    border-radius: 10px;
+    margin-right: 50px;
+}
+#boxContainer
+{
+    display: grid;
+    grid-gap: 20px;
+    padding: 20px;
+    width: 100%;
+    /* float: left; */
+}
+#box
+{
+    background-color: white;
+    box-shadow: 1px 2px 6px 2px rgb(219, 219, 219);
+    border-radius: 10px;
+    width: 100%;
+    /* margin: auto */
+    padding: 20px 10px;
+}
+#box:hover
+{
+    box-shadow: 0px 1px 3px 2px rgb(185, 185, 185);
+}
+#totalContainer
+{
+    width: 50%;
+    padding: 20px;
+    margin: auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 1px 2px 6px 2px rgb(219, 219, 219);
+}
+#totalContainer:hover
+{
+    box-shadow: 0px 1px 3px 2px rgb(185, 185, 185);
+}
+button
+{
+    padding: 8px 12px;
+    color: #fff;
+    background-color: rgb(9, 9, 9);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button a
+{
+    text-decoration: none;
+    color: white;
+    font-size: 15px;
+}
+button:hover
+{
+    background-color: rgb(3, 94, 94);
+}
+button a:focus
+{
+    outline: none;
+}
+
+/* footer */
+footer {
+    background-color: #000000;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  nav {
+    background-color: #000000;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between; /* Align items to the ends */
+    align-items: center;
+  }
+  a.login_cart_btn{
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: buttontext;
+    background-color: buttonface;
+    text-decoration: none;
+    cursor: pointer;
+    float: right;
+
+}
+.button:hover{
+    background-color: #161616;
+    color: #e8e8e8;
+}
+  header {
+    background-color: #000000;
+    color: #fff;
+    padding: 10px;
+  }
+  .header-logo {
+     margin-bottom: 20px;
+    }
+  
+  .header-logo img { 
+    margin: auto;
+    height: auto;
+  }
+  #checkout-button:hover{
+    background-color: #161616;
+  }
+  
+</style>
+
+</head>
+<body>
+
+    <div class="nav_container">
+        <header>
+          <a href="#" class="header-logo">
+            <img src="https://res.cloudinary.com/dmubfrefi/image/private/s--X0LLoOBX--/c_crop,h_2728,w_4090,x_334,y_0/f_auto/q_auto/v1/dee-about-cms-prod-medias/cf68f541-fc92-4373-91cb-086ae0fe2f88/002-nike-logos-swoosh-white.jpg?_a=BAAAROBs" alt="Nike's logo" width="120" height="36">
+          </a>
+        <nav>
+            <div class="nav_btn">
+                <a href="./index.html" class="login_cart_btn">Home</a>
+                <a href="/index.html" class="login_cart_btn">Products</a>
+            </div>
+        </nav>
+        </header>
+      </div>
+    
+
+        <!-- CART CONTAINER -->
+    <div id="cartMainContainer">
+        <h1> Checkout </h1>
+        <h3 id="totalItem"> Total Items: 0 </h3>
+        <button id="checkout-button">Checkout</button>
+        <div id="cartContainer">
+            <!-- JS rendered code -->
+        </div>
+
+    </div>
+
+<footer >
+    <p>&copy; 2024 NIKE by Mudassir Hayath</p>
+</footer>
+
+
+<!-- JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItemsContainer = document.getElementById('cartContainer');
+
+        function updateCartDisplay() {
+            if (!cartItemsContainer) {
+                console.error('Cart container element not found.');
+                return;
+            }
+
+            cartItemsContainer.innerHTML = '';
+
+            cart.forEach(item => {
+                const cartItemDiv = document.createElement('div');
+                cartItemDiv.classList.add('cart-item');
+
+                cartItemDiv.innerHTML = `
+                    <img src="${item.imgSrc}.jpg" alt="${item.name}">
+                    <div class="item-details">
+                        <h3>${item.name}</h3>
+                        <p>Price: $${item.price.toFixed(2)}</p>
+                        <p>Quantity: ${item.quantity}</p>
+                    </div>
+                    <button class="remove-button" data-id="${item.id}">Remove</button>
+                `;
+
+                cartItemsContainer.appendChild(cartItemDiv);
+            });
+
+            const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+
+            const totalItemElement = document.getElementById('totalItem');
+            if (totalItemElement) {
+                totalItemElement.textContent = `Total Items: ${cart.length}`;
+            } else {
+                console.error('Total item element not found.');
+            }
+
+            document.querySelectorAll('.remove-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemId = button.getAttribute('data-id');
+                    const itemIndex = cart.findIndex(item => item.id === itemId);
+
+                    if (itemIndex !== -1) {
+                        cart.splice(itemIndex, 1);
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        console.log('Item removed from cart:', itemId);
+                        updateCartDisplay(); // Update the cart display after removing item
+                    }
+                });
+            });
+        }
+
+        updateCartDisplay();
+    });
+</script>
+
+</body>
+</html>
+
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the element by ID
+        const paymentButton = document.querySelector('#checkout-button');
+    
+        // Add click event listener
+        paymentButton.addEventListener('click', function() {
+            alert('Payment Successful');
+        });
+
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItemsContainer = document.getElementById('cartContainer');
+
+        cart.forEach(item => {
+            const cartItemDiv = document.createElement('div');  
+            cartItemDiv.classList.add('cart-item');
+
+            cartItemDiv.innerHTML = `
+                <img src="${item.imgSrc}.jpg" alt="${item.name}">
+                <div class="item-details">
+                    <h3>${item.name}</h3>
+                    <p>Price: $${item.price.toFixed(2)}</p>
+                    <p>Quantity: ${item.quantity}</p>
+                </div>
+                <button class="remove-button" data-id="${item.id}">Remove</button>
+            `;
+
+            cartItemsContainer.appendChild(cartItemDiv);
+        });
+
+        const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+
+        document.getElementById('totalItem').textContent = `Total Items: ${cart.length}`; // Update total items
+        document.getElementById('cart-total').textContent = `$${total.toFixed(2)}`; // Update cart total
+    });
+</script>
+ -->

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css" />
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <title>Signup</title>
+  </head>
+  <body>
+    <div class="d-lg-flex half">
+      <div
+        class="bg order-1 order-md-2"
+        style="background-image: url(https://yt3.googleusercontent.com/g3wGI89O9cJEwPVEYQUYTI-XXYyo2M4ma4szxRI7Yjwccp2efgm3eihapjBF1Ef4fQApJU7GE-M=s900-c-k-c0x00ffffff-no-rj)"
+      ></div>
+      <div class="contents order-2 order-md-1">
+        <div class="container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-md-7">
+              <h3>Register your account</h3>
+              <form id="MainForm" action="#" method="post">
+                <div class="form-group last mb-3">
+                  <label for="fname">First Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your first name"
+                    id="fname"
+                  />
+                </div>
+                <div class="form-group last mb-3">
+                  <label for="lname">Last Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your Last Name"
+                    id="lname"
+                  />
+                </div>
+                <div class="form-group last mb-3">
+                  <label for="email">Email</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your email"
+                    id="email"
+                  />
+                </div>
+                <div class="form-group last mb-3">
+                  <label for="password">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Enter a valid password"
+                    id="password"
+                  />
+                </div>
+
+                <input
+                  type="submit"
+                  value="Sign Up"
+                  class="btn btn-block btn-primary"
+                />
+                <p>Already have an account? <a href="../login/index.html">Login</a> <br> Continue as guest? <a href="/index.html">Home</a></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
+      import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+      import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAENZj6Rt4YrXoFZLSh_0QZqq_yUSsNMXE",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID",
+        measurementId: "YOUR_MEASUREMENT_ID"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getDatabase();
+      const auth = getAuth(app);
+
+      document.addEventListener('DOMContentLoaded', () => {
+        let MainForm = document.getElementById('MainForm');
+
+        let registerUser = evt => {
+          evt.preventDefault();
+          let fname = document.getElementById('fname').value;
+          let lname = document.getElementById('lname').value;
+          let email = document.getElementById('email').value;
+          let password = document.getElementById('password').value;
+
+          createUserWithEmailAndPassword(auth, email, password)
+            .then((credentials) => {
+              set(ref(db, 'UsersAuthList/' + credentials.user.uid), {
+                firstname: fname,
+                lastname: lname,
+                email: email,
+                password: password
+              });
+              
+              // Redirect to a different page on successful registration
+              window.location.href = "index_copy.html";
+            })
+            .catch((error) => {
+              alert(error.message);
+              console.log(error);
+            });
+        };
+
+        MainForm.addEventListener('submit', registerUser);
+      });
+    </script>
+  </body>
+</html>

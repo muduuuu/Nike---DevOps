@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css" />
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="d-lg-flex half">
+      <div
+        class="bg order-1 order-md-2"
+        style="background-image: url(https://yt3.googleusercontent.com/g3wGI89O9cJEwPVEYQUYTI-XXYyo2M4ma4szxRI7Yjwccp2efgm3eihapjBF1Ef4fQApJU7GE-M=s900-c-k-c0x00ffffff-no-rj)"
+      ></div>
+      <div class="contents order-2 order-md-1">
+        <div class="container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-md-7">
+              <h3>Login</h3>
+              <form id="MainForm">
+                <div class="form-group first">
+                  <label for="email">Email</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your email"
+                    id="email"
+                  />
+                </div>
+                <div class="form-group last mb-3">
+                  <label for="password">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Your Password"
+                    id="password"
+                  />
+                </div>
+
+                <div class="d-flex mb-5 align-items-center">
+                  <label class="control control--checkbox mb-0"
+                    ><span class="caption">Remember me</span>
+                    <input type="checkbox" checked="checked" />
+                    <div class="control__indicator"></div>
+                  </label>
+                  <span class="ml-auto"
+                    ><a href="#" class="forgot-pass">Forgot Password</a></span
+                  >
+                </div>
+                <div>
+                    <p>Don't have an account? <a href="../signup/index.html">Sign up</a> <br>Continue as guest? <a href="/index.html">Home</a> </p>
+                </div>
+
+                <input 
+                  type="submit"
+                  value="Log In"
+                  class="btn btn-block btn-primary"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
+      import { getDatabase, get, ref, child} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+      import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+  
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAENZj6Rt4YrXoFZLSh_0QZqq_yUSsNMXE",
+        authDomain: "nike-devops.firebaseapp.com",
+        projectId: "nike-devops",
+        storageBucket: "nike-devops.appspot.com",
+        messagingSenderId: "602274035317",
+        appId: "1:602274035317:web:fe29901f197f0efcde2a3c",
+        measurementId: "G-C9J6ML19VZ",
+        databaseURL: "https://nike-devops-default-rtdb.firebaseio.com/"
+      };
+  
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getDatabase();
+      const auth = getAuth(app);
+      const dbref = ref(db);
+  
+      let MainForm = document.getElementById('MainForm');
+      let loginButton = document.querySelector('.login_cart_btn');
+  
+      let SignInUser = evt => {
+          evt.preventDefault();
+          let email = document.getElementById('email').value;
+          let password = document.getElementById('password').value; 
+  
+          console.log(email)
+          signInWithEmailAndPassword(auth, email, password)
+          .then((credentials) => {
+              get(child(dbref, 'UsersAuthList/' + credentials.user.uid));
+              window.location.href = "/index.html";
+          })
+          .catch((error) => {
+              alert(error.message);
+              console.log(error);
+          });
+      }
+  
+      MainForm.addEventListener('submit', SignInUser);
+  
+      // Check if user is authenticated
+      onAuthStateChanged(auth, (user) => {
+          if (user) {
+              // User is signed in
+              loginButton.textContent = 'Logout';
+              loginButton.addEventListener('click', () => {
+                  signOut(auth).then(() => {
+                      // Sign-out successful
+                      window.location.reload(); // Reload the page after logout
+                  }).catch((error) => {
+                      console.log(error.message);
+                  });
+              });
+          } else {
+              // User is signed out
+              loginButton.textContent = 'Log In';
+          }
+      });
+  </script>
+
+  </body>
+</html>
