@@ -8,10 +8,10 @@ This web application showcases a Nike-themed website developed using HTML and CS
 
 ### Dependencies
 
-Local server - 5500
-Jenkins 
-Docker container
-Google Firebase
+Local server - 5500<br />
+Jenkins <br />
+Docker container <br />
+Google Firebase <br />
 
 ## Key Features:
 Responsive Design: The website is designed to be fully responsive, ensuring a seamless experience across various devices and screen sizes.
@@ -34,12 +34,16 @@ Consistent Environments: Docker ensures that the website runs in the same enviro
 Scalability: The use of Docker containers allows for easy scaling and orchestration of the application in various environments.
 
 ## Authors
-Name: Mudassir Hayath
-Role: Developer/Maintainer
-Email: mudassirhayath30@gmail.com
+Name: Mudassir Hayath <br />
+Role: Developer/Maintainer <br />
+Email: mudassirhayath30@gmail.com <br />
 
 # Code Snippets: 
-
+![Screenshot 2024-05-27 165900](https://github.com/muduuuu/Nike---DevOps/assets/108679596/f42391c2-632b-47bb-b69b-a47a50cdf172)
+<br />
 ![image](https://github.com/muduuuu/Nike---DevOps/assets/108679596/336a1b4e-82c7-4221-9edc-7b309a0768ef)
+
+# Web Application Interface:
+![image](https://github.com/muduuuu/Nike---DevOps/assets/108679596/9567fee1-cc6b-4351-a4b7-81345f32dd8a)
 
 
