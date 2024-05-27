@@ -1,62 +1,45 @@
 # Project Title
 
-Simple overview of use/purpose.
-
+The project was made to replicate the basic features of the official Nike store, hence nike-clone.
 ## Description
 
-An in-depth paragraph about your project and overview of use.
-
+This web application showcases a Nike-themed website developed using HTML and CSS using Vanilla Javascript as backend, highlighting the use of Jenkins and Docker for continuous integration and containerization. The primary focus is on illustrating how modern development workflows can be optimized using these tools.
 ## Getting Started
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+Local server - 5500
+Jenkins 
+Docker container
+Google Firebase
 
-### Installing
+## Key Features:
+Responsive Design: The website is designed to be fully responsive, ensuring a seamless experience across various devices and screen sizes.
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+HTML and CSS: The front-end is built with clean and structured HTML5 and styled with CSS3 to reflect Nike's sleek and modern branding.
 
-### Executing program
+Jenkins Integration:
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+Continuous Integration (CI): Jenkins is configured to automatically build and test the website whenever changes are pushed to the repository. This ensures that the website remains functional and bug-free with each update.
 
-## Help
+Pipeline as Code: Jenkins pipelines are defined using a Jenkinsfile, providing a clear and version-controlled build process.
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+Docker Containerization: The website is packaged into a Docker container, ensuring consistency across different environments. This eliminates the "it works on my machine" problem.
+Docker Compose: Utilizes Docker Compose to manage multi-container applications, making it easy to define and run the web server and any supporting services.
+Portability: The Docker container can be deployed on any system that supports Docker, making it highly portable and scalable.
+
+## Benefits:
+Automated Workflows: Jenkins automates the build, test, and deployment processes, reducing manual intervention and increasing productivity.
+Consistent Environments: Docker ensures that the website runs in the same environment across all stages of development, testing, and production.
+Scalability: The use of Docker containers allows for easy scaling and orchestration of the application in various environments.
 
 ## Authors
+Name: Mudassir Hayath
+Role: Developer/Maintainer
+Email: mudassirhayath30@gmail.com
 
-Contributors names and contact info
+# Code Snippets: 
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+![image](https://github.com/muduuuu/Nike---DevOps/assets/108679596/336a1b4e-82c7-4221-9edc-7b309a0768ef)
 
-## Version History
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
