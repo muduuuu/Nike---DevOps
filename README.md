@@ -1,6 +1,6 @@
 # Project Title
 
-The project was made to replicate the basic features of the official Nike store, hence nike-clone.
+The project was made to replicate the basic features of the official Nike store, hence nike-clone and heavily practice the DevOps tools and technologies, which explains the basic HTML website. Thanks!
 ## Description
 
 This web application showcases a Nike-themed website developed using HTML and CSS using Vanilla Javascript as backend, highlighting the use of Jenkins and Docker for continuous integration and containerization. The primary focus is on illustrating how modern development workflows can be optimized using these tools.
